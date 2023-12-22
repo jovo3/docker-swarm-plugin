@@ -43,6 +43,7 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
     private String hosts;
 
     private String cacheDir;
+    private String volumeDir;
     private String envVars;
     private String baseWorkspaceLocation;
     private String placementConstraints;
@@ -60,7 +61,7 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
     public DockerSwarmAgentTemplate(final String image, final String hostBinds, final String hostNamedPipes, final String dnsIps,
             final String dnsSearchDomains, final String unixCommand,final String windowsCommand, final String user, final String workingDir,
             final String hosts, final String metadata, final String secrets, final String configs, final String label, final String cacheDir,
-            final String tmpfsDir, final String envVars, final long limitsNanoCPUs, final long limitsMemoryBytes,
+            final String volumeDir, final String tmpfsDir, final String envVars, final long limitsNanoCPUs, final long limitsMemoryBytes,
             final long reservationsNanoCPUs, final long reservationsMemoryBytes, String portBinds, final boolean osWindows,
             final String baseWorkspaceLocation, final String placementConstraints, final String placementArchitecture,
             final String placementOperatingSystem, final String email, final String serverAddress, final String pullCredentialsId) {
@@ -79,6 +80,7 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
         this.configs = configs;
         this.label = label;
         this.cacheDir = cacheDir;
+        this.volumeDir = volumeDir;
         this.tmpfsDir = tmpfsDir;
         this.limitsNanoCPUs = limitsNanoCPUs;
         this.limitsMemoryBytes = limitsMemoryBytes;
@@ -98,6 +100,10 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
 
     public String[] getCacheDirs() {
         return StringUtils.isEmpty(this.cacheDir) ? new String[] {} : this.cacheDir.split("[\\r\\n ]+");
+    }
+
+    public String[] getVolumeDirs() {
+        return StringUtils.isEmpty(this.volumeDir) ? new String[] {} : this.volumeDir.split("[\\r\\n ]+");
     }
 
     public String getLabel() {
@@ -284,6 +290,10 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
 
     public String getCacheDir() {
         return cacheDir;
+    }
+
+    public String getVolumeDir() {
+        return volumeDir;
     }
 
     public String getUser() {
